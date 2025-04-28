@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { onChangeArgs, Product } from "../interfaces/interfaces";
 
 interface useProductArgs {
@@ -13,22 +13,12 @@ export const useProduct = ({
 }: useProductArgs) => {
   const [counter, setCounter] = useState(value);
 
-  const isControlled = useRef(!!onChange);
-
   // el useRef es un hook que nos permite guradar un valor
   // y no se vuelve a ejecutar cada vez que se renderiza el componente
   // en este caso lo que hacemos es verificar si el onChange existe
   // y si existe es un componente controlado
 
   const increaseBy = (value: number) => {
-    if (isControlled.current) {
-      return onChange!({ count: value, product });
-
-      // si el componente es controlado
-      //  solo llamamos a la funcion onChange, por ende no se actualizar el estado
-      // se utiliza el signo de admiracion para decirle a typescript que no es undefined
-    }
-
     const newValue = Math.max(counter + value, 0);
 
     // aqui obtenemos el valor anterior y le sumamos el nuevo valor y con la funcion math.max
